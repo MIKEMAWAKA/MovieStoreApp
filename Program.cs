@@ -1,14 +1,26 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using MovieStoreApp.Models.Domain;
+using MovieStoreApp.Repository.Abstract;
+using MovieStoreApp.Repository.Implementation;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddScoped<IUserAuthenticationService, AuthenticationService>();
 
-//builder.Services.AddDbContext<DataContext>(options =>
-//  options.UseMySql(builder.Configuration.GetConnectionString("MoviestoreConnectionString"), ServerVersion.AutoDetect(builder.Configuration.GetConnectionString("MoviestoreConnectionString")))
+builder.Services.AddDbContext<MovieDatabaseContext>(options =>
+  options.UseMySql(builder.Configuration.GetConnectionString("MoviestoreConnectionString"), ServerVersion.AutoDetect(builder.Configuration.GetConnectionString("MoviestoreConnectionString")))
 
-//);
+);
+
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
+    .AddEntityFrameworkStores<MovieDatabaseContext>()
+    .AddDefaultTokenProviders();
+
+//builder.Services.ConfigureApplicationCookie(options => options.LoginPath = "/UserAuthentication/Login");
 
 var app = builder.Build();
 
@@ -24,6 +36,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+app.UseAuthentication();
 
 app.UseAuthorization();
 

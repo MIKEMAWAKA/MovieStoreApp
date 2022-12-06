@@ -10,6 +10,16 @@
     <None Remove="Microsoft.EntityFrameworkCore" />
     <None Remove="Microsoft.EntityFrameworkCore.Design" />
     <None Remove="Pomelo.EntityFrameworkCore.MySql" />
+    <None Remove="Models\" />
+    <None Remove="Controllers\" />
+    <None Remove="Views\Home\" />
+    <None Remove="Microsoft.AspNetCore.Identity.EntityFrameworkCore" />
+    <None Remove="Models\Domain\" />
+    <None Remove="Models\DTO\" />
+    <None Remove="Repository\" />
+    <None Remove="Repository\Abstract\" />
+    <None Remove="Repository\Implementation\" />
+    <None Remove="Views\UserAuthentication\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.11" />
@@ -18,5 +28,23 @@
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="6.0.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.11" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Remove="wwwroot\css\" />
+    <Content Remove="wwwroot\js\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="wwwroot\css\" />
+    <Folder Include="wwwroot\js\" />
+    <Folder Include="Models\" />
+    <Folder Include="Controllers\" />
+    <Folder Include="Views\Home\" />
+    <Folder Include="Models\Domain\" />
+    <Folder Include="Models\DTO\" />
+    <Folder Include="Repository\" />
+    <Folder Include="Repository\Abstract\" />
+    <Folder Include="Repository\Implementation\" />
+    <Folder Include="Views\UserAuthentication\" />
   </ItemGroup>
 </Project>
