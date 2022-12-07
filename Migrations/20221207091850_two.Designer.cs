@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MovieStoreApp.Models.Domain;
 
@@ -10,9 +11,10 @@ using MovieStoreApp.Models.Domain;
 namespace MovieStoreApp.Migrations
 {
     [DbContext(typeof(MovieDatabaseContext))]
-    partial class MovieDatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20221207091850_two")]
+    partial class two
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

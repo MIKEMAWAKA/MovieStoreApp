@@ -10,6 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<IUserAuthenticationService, AuthenticationService>();
+builder.Services.AddScoped<IGenreService, GenreService>();
 
 builder.Services.AddDbContext<MovieDatabaseContext>(options =>
   options.UseMySql(builder.Configuration.GetConnectionString("MoviestoreConnectionString"), ServerVersion.AutoDetect(builder.Configuration.GetConnectionString("MoviestoreConnectionString")))
