@@ -9,7 +9,7 @@ namespace MovieStoreApp.Models.Domain
 		public int Id { get; set; }
 
 		[Required]
-		public string GenreName { get; set; }
+		public string? GenreName { get; set; }
 
 
 	}

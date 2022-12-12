@@ -12,51 +12,65 @@ namespace MovieStoreApp.Repository.Implementation
             this.environment = environment;
         }
 
-        public bool DeleteImage(string imageFileName)
-        {
-            throw new NotImplementedException();
-        }
+       
 
         public Tuple<int, string> SaveImage(IFormFile imageFile)
         {
             try
             {
-                var wwPath = this.environment.WebRootPath;
-
-                var path = Path.Combine(wwPath, "Uploads");
-
+                var wwwPath = this.environment.WebRootPath;
+                var path = Path.Combine(wwwPath, "Uploads");
                 if (!Directory.Exists(path))
                 {
                     Directory.CreateDirectory(path);
                 }
-                //chek the allowed extentions
+
+                // Check the allowed extenstions
                 var ext = Path.GetExtension(imageFile.FileName);
                 var allowedExtensions = new string[] { ".jpg", ".png", ".jpeg" };
-
                 if (!allowedExtensions.Contains(ext))
                 {
-                    string msg = string.Format("Only {0} extensions are allowed", string.Join(" ", allowedExtensions));
-
+                    string msg = string.Format("Only {0} extensions are allowed", string.Join(",", allowedExtensions));
                     return new Tuple<int, string>(0, msg);
-
-
                 }
-
                 string uniqueString = Guid.NewGuid().ToString();
-
+                // we are trying to create a unique filename here
                 var newFileName = uniqueString + ext;
-                var fileWidthPath = Path.Combine(path, newFileName);
-                var stream = new FileStream(fileWidthPath, FileMode.Create);
+                var fileWithPath = Path.Combine(path, newFileName);
+                var stream = new FileStream(fileWithPath, FileMode.Create);
                 imageFile.CopyTo(stream);
                 stream.Close();
-
                 return new Tuple<int, string>(1, newFileName);
-
-               
             }
             catch (Exception ex)
             {
                 return new Tuple<int, string>(0, "Error has occured");
+            }
+        }
+
+
+
+        public bool DeleteImage(string imageFileName)
+        {
+            try
+            {
+
+                var wwPath = this.environment.WebRootPath;
+
+                var path = Path.Combine(wwPath, "Uploads\\",imageFileName);
+
+                if (!System.IO.File.Exists(path))
+                {
+                    System.IO.File.Delete(path);
+
+                    return true;
+                }
+                return false;
+
+            }
+            catch (Exception ex)
+            {
+                return false;
 
             }
         }

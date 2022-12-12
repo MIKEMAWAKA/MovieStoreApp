@@ -1,4 +1,5 @@
 ﻿using System;
+using Microsoft.AspNetCore.Mvc;
 using MovieStoreApp.Models.Domain;
 using MovieStoreApp.Repository.Abstract;
 
@@ -60,6 +61,8 @@ namespace MovieStoreApp.Repository.Implementation
 
             return data;
         }
+
+     
 
         public bool Update(Genre genre)
         {
