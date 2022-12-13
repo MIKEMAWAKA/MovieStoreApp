@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using MovieStoreApp.Models.Domain;
 using MovieStoreApp.Models.DTO;
 using MovieStoreApp.Repository.Abstract;
@@ -41,6 +42,9 @@ namespace MovieStoreApp.Repository.Implementation
 
         public bool Delete(int id)
         {
+
+
+
             try
             {
                 var data = this.GetById(id);
@@ -73,9 +77,37 @@ namespace MovieStoreApp.Repository.Implementation
             return data;
         }
 
-        public MovieListVm List()
+        public MovieListVm List(string term = "",bool paging= false, int currentPage=0)
         {
-            var list  = ctx.Movies.ToList();
+            var data = new MovieListVm();
+         
+            var  list = ctx.Movies.ToList();
+
+
+
+            if (!string.IsNullOrEmpty(term))
+            {
+                term = term.ToLower();
+
+                list = list.Where(a => a.Title.ToLower().StartsWith(term)).ToList();
+
+            }
+
+
+            if (paging)
+            {
+               
+                // here we will apply paging
+                int pageSize = 5;
+                int count = list.Count;
+                int TotalPages = (int)Math.Ceiling(count / (double)pageSize);
+                list = list.Skip((currentPage - 1) * pageSize).Take(pageSize).ToList();
+                data.PageSize = pageSize;
+                data.CurrentPage = currentPage;
+                data.TotalPages = TotalPages;
+
+            }
+          
 
             foreach (var item in  list)
             {
@@ -94,12 +126,8 @@ namespace MovieStoreApp.Repository.Implementation
             }
 
 
-            var data = new MovieListVm
-            {
-                MovieList = list.AsQueryable()
-
-            };
-
+           
+            data.MovieList = list.AsQueryable();
             return data;
         }
 

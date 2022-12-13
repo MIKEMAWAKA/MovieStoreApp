@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using MovieStoreApp.Models.Domain;
@@ -12,6 +13,8 @@ using MovieStoreApp.Repository.Implementation;
 
 namespace MovieStoreApp.Controllers
 {
+
+    [Authorize]
     public class MovieController : Controller
     {
         private readonly IMovieService movieService;
